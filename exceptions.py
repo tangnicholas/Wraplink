@@ -1,0 +1,2 @@
+class TransLinkAPIError(Exception):
+    pass
