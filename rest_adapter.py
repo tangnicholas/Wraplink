@@ -27,7 +27,7 @@ class RestAdapter:
             requests.packages.urllib3.disable_warnings()
 
 
-    def _do(self, http_method: str, endpoint: str, ep_params: Dict = None, data: Dict = None) -> Result:
+    def _do(self, http_method: str, endpoint: str, filter: str = '', ep_params: Dict = None, data: Dict = None) -> Result:
         """_summary_
 
         Args:
@@ -39,7 +39,8 @@ class RestAdapter:
         Returns:
             Result: _description_
         """
-        full_url = self.url + endpoint + f"?apiKey=" + self._api_key
+        # full_url = f"http://api.translink.ca/RTTIAPI/V1/stops/60158/estimates?apiKey=RjxEAxso8GsoFzaXtLOn"
+        full_url = self.url + endpoint + f"?apiKey=" + self._api_key + filter
         headers = {'Accept': 'application/JSON'}
 
         log_line_pre = f"method={http_method}, url={full_url}, params={ep_params}"
@@ -71,8 +72,8 @@ class RestAdapter:
         raise TransLinkAPIError(f"{response.status_code}: {response.reason}")
     
 
-    def get(self, endpoint: str, ep_params: Dict = None) -> Result:
-        return self._do(http_method='GET', endpoint=endpoint, ep_params=ep_params)
+    def get(self, endpoint: str, filter: str, ep_params: Dict = None) -> Result:
+        return self._do(http_method='GET', endpoint=endpoint, filter = filter, ep_params=ep_params)
 
     def delete(self, endpoint: str, ep_params: Dict = None, data: Dict = None) -> Result:
         return self._do(http_method='DELETE', endpoint=endpoint, ep_params=ep_params, data=data)

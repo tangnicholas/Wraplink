@@ -9,8 +9,8 @@ NOT DONE
 A LOT
 
 cd Desktop/github_repos
-py -m Wraplink.test
 
+py -m Wraplink.test
 
 **Changelog**
 1. 3/18/2024 - base functionality + minor adjustments
