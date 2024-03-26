@@ -28,7 +28,3 @@ class Wraplink:
 
         return nextbus
     
-
-busapi = Wraplink()
-result = busapi.get_next_bus_arrivals(stop_num= 61127, get_count= 3, bus_num= 33)
-print(result)

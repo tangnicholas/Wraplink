@@ -1,3 +1,4 @@
+import os
 import logging
 import requests
 import requests.packages
@@ -8,7 +9,7 @@ from .models import Result
 
 
 class RestAdapter:
-    def __init__(self, hostname: str = 'api.translink.ca/rttiapi', api_key: str = 'RjxEAxso8GsoFzaXtLOn' , ver: str = 'v1', ssl_verify: bool = True, logger: logging.Logger = None):
+    def __init__(self, hostname: str = 'api.translink.ca/rttiapi', api_key: str = os.environ.get("TransLink_API_key") , ver: str = 'v1', ssl_verify: bool = True, logger: logging.Logger = None):
         """Constructor for restadapter
 
         Args:
