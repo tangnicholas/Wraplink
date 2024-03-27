@@ -45,26 +45,25 @@ class WrapFrame(tk.Frame):
         self.columnconfigure(2, weight=1)
 
         self.picture_frame.update()
-        self.bus_label = tk.Label(self.picture_frame, text = '', font=("Times New Roman", 72))
-        self.bus_label.pack()
-        pf_width = self.picture_frame.winfo_width()
-        pf_height = self.picture_frame.winfo_height()
-
         self.picture_frame.rowconfigure(0, weight=1)
         self.picture_frame.columnconfigure(0, weight=1)
 
     def get_buses_button_clicked(self):
-        # get kitty url and download kitty image to memory
-        self.bus_schedule = busapi.get_next_bus_arrivals(stop_num= 61127, get_count= 2, bus_num= 33)
+        self.bus_schedule = busapi.get_next_bus_arrivals(stop_num= 61127, get_count= 3, bus_num= 33)
         self.url_label.config(text="Last Updated: " + datetime.now().strftime('%I:%M %p'))
+        
+        # bus label stuff
+        self.bus_label.delete(0,tk.END)
+        self.bus_label.pack()
+        self.bus_label = tk.Listbox(self.picture_frame, 
+                height=3, 
+                font=("Times New Roman", 48))
+        self.bus_label.pack()               
 
         for i in range(len(self.bus_schedule)):
             bus_instance_formatted = datetime.strptime(self.bus_schedule[i], '%I:%M%p %Y-%m-%d').strftime('%I:%M %p')
-            if i == 0:
-                self.bus_label.config(text=bus_instance_formatted)
-            else:
-                self.bus_label = tk.Label(self.picture_frame, text = bus_instance_formatted, font=("Times New Roman", 72))
-            self.bus_label.pack()
+            self.bus_label.insert(i+1, bus_instance_formatted)
+        self.bus_label.pack()
                 
 
 if __name__ == '__main__':
